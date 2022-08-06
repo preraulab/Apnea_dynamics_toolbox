@@ -84,4 +84,26 @@ Usage:
 
 ```
 
+## Model Visualization
+To compute the predicted values for the GLM, glmval function is applied
+
+* Input:
+  - Fitted parameters: b 
+  - Sp: the cardinal spline matrix
+  - link function: ‘log’
+  - stats: Matlab struct from the output of glmfit
+  - Include constant or not: ‘constant’, ‘off’ 
+
+* Output:
+  - yhat: [150 x 1] vector, history dependence curve
+  - ylo: yhat – ylo defines the 95% lower confidence bound of yhat
+  - yhi: yhat + yhi defines the 95% upper confidence bound of yhat
+
+Usage:
+```
+[yhat,ylo,yhi] = glmval(b,[zeros(150,6) Sp],'log',stats,'constant','off');
+
+```
+
+
 
