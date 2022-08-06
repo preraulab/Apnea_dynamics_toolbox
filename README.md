@@ -158,6 +158,14 @@ which should be cited for academic use of this code.
 <br/>
 <br/>
 
+## Status
+In progress, 08/06/2022, Updated by SC
+
+* Need to be updated:
+  - Link all the functions
+  - Link pictures
+
+
 
 
 
