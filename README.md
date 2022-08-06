@@ -67,10 +67,10 @@ To prepare for the model fitting, we need to convert the data into a design matr
   - Body position (pos): [n x 1] vector, binary (0 or 1), 1 means Supine position at that time interval
   - Sleep stage (sta): [n x 5] matrix defined as [N1 N2 N3 REM Wake], binary (0 or 1), value 1 in each stage column indicates the corresponding stage the participant is in at that time interval    
   - Event history (hist):[n x 9] matrix describes the past event activity in the cardinal spline basis
-- Total time lag: 150
-- Tension parameter s: 0.5
-- Number of knots: 9
-- Knot location setting: With end points at 0 and 150 seconds, 4 knots were placed evenly between the 10th percentile of inter-event intervals and 90 seconds, with another knot at 120 seconds. Two additional knots placed at -10 and 160 seconds were used to determine the derivatives of the spline function at the end points
+    - Total time lag: 150
+    - Tension parameter s: 0.5
+    - Number of knots: 9
+    - Knot location setting: With end points at 0 and 150 seconds, 4 knots were placed evenly between the 10th percentile of inter-event intervals and 90 seconds, with another knot at 120 seconds. Two additional knots placed at -10 and 160 seconds were used to determine the derivatives of the spline function at the end points
 
 
 
