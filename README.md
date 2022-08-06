@@ -10,9 +10,10 @@ The sleep apnea dynamics toolbox implemented in Matlab
 * [Building Design Matrix](#building-design-matrix)
 * [Model Fitting](#model-fitting)
 * [Model Visualization](#model-visualization)
+* [Example Data](#example-data)
 * [Citations](#citations)
 * [Status](#status)
-* [References](#references)
+
 
 ## General Information
 The code in this repository is companion to the paper:
@@ -23,6 +24,7 @@ Obstructive sleep apnea (OSA), in which breathing is reduced or ceased during sl
 This model acts as a highly individualized respiratory fingerprint, which we show can accurately predict the precise timing of future events. We also demonstrate robust model differences in age, sex, and race across a large population. Overall, this approach provides a substantial advancement in OSA characterization for individuals and populations, with the potential for improved patient phenotyping and outcome prediction.
 
 Herein, we provide code to walk through people, from constructing model input to model fitting, as well as the code to visualize the model.
+
 
 <!--- UPDATE THIS USING GRAPHICAL ABSTRACT<br/>
 <p align="center"> 
@@ -36,5 +38,50 @@ Herein, we provide code to walk through people, from constructing model input to
 <br/> --->
 <br/>
 
+
+## Data Format Description
+To analyze apnea dynamics, we need these required information
+* apnea event time: the apnea event end times
+* sleep stage: stage times and corresponding stages
+  - 1: N3 stage
+  - 2: N2 stage
+  - 3: N1 stage
+  - 4: REM (Rapid Eye Movement sleep)
+  - 5: Wake
+* body position: position times and corresponding positions. Raw positions (0:Right; 1: Back; 2: Left; 3: Prone; 4: Upright) are relabeled as:
+  - 1: Supine (Sleep on back)
+  - 0: Non-Supine (Right, Left, Prone, Upright)
+
+<!--- Usage:
+```
+hand_scoring_tfpeaks(data, Fs, staging)
+``` --->
+
+## Building Design Matrix
+
+To prepare for the model fitting, we need to convert the data into a design matrix that contains all the predictors and a corresponding response column that indicates the apnea event occurrence. Apnea event times were discretized into 1-second intervals and the time series the number of respiratory events (0 or 1) terminating in each of those intervals was computed.
+
+
+* Response (y): [n x 1] vector, binary (0 or 1) event train, 1 means the apnea event happened at that time interval
+* Design matrix: [n x 15] matrix defined as [pos sta hist] 
+  - Body position (pos): [n x 1] vector, binary (0 or 1), 1 means Supine position at that time interval
+  - Sleep stage (sta): [n x 5] matrix defined as [N1 N2 N3 REM Wake], binary (0 or 1), value 1 in each stage column indicates the corresponding stage the participant is in at that time interval    
+  - Event history (hist):[n x 9] matrix describes the past event activity in the cardinal spline basis
+- Total time lag: 150
+- Tension parameter s: 0.5
+- Number of knots: 9
+- Knot location setting: With end points at 0 and 150 seconds, 4 knots were placed evenly between the 10th percentile of inter-event intervals and 90 seconds, with another knot at 120 seconds. Two additional knots placed at -10 and 160 seconds were used to determine the derivatives of the spline function at the end points
+
+
+
+## Model Fitting
+In Matlab, glmfit function is applied to fit the point process-GLM model.
+
+
+Usage:
+```
+[b1, dev1, stats1] = glmfit([pos sta hist],y,'poisson','constant','off');
+
+```
 
 
