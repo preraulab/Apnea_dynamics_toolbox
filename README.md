@@ -1,7 +1,7 @@
 # Apnea_dynamics_toolbox
 The sleep apnea dynamics toolbox implemented in Matlab
 ### This is the repository for the code referenced in: 
-> Shuqiang Chen, Susan Redline, Uri T. Eden, and Michael J. Prerau*, [Dynamic Models of Obstructive Sleep Apnea Provide Robust Prediction of Respiratory Event Timing and a Statistical Framework for Phenotype Exploration], SLEEP 2022 (in press)
+> Shuqiang Chen, Susan Redline, Uri T. Eden, and Michael J. Prerau*. Dynamic Models of Obstructive Sleep Apnea Provide Robust Prediction of Respiratory Event Timing and a Statistical Framework for Phenotype Exploration, Sleep, 2022, zsac189, https://doi.org/10.1093/sleep/zsac189
 --- 
 
 ## Table of Contents
@@ -15,9 +15,12 @@ The sleep apnea dynamics toolbox implemented in Matlab
 * [Status](#status)
 
 
+<br/>
+<br/>
+
 ## General Information
 The code in this repository is companion to the paper:
-> Shuqiang Chen, Susan Redline, Uri T. Eden, and Michael J. Prerau*, [Dynamic Models of Obstructive Sleep Apnea Provide Robust Prediction of Respiratory Event Timing and a Statistical Framework for Phenotype Exploration], SLEEP 2022 (in press)
+> Shuqiang Chen, Susan Redline, Uri T. Eden, and Michael J. Prerau*. Dynamic Models of Obstructive Sleep Apnea Provide Robust Prediction of Respiratory Event Timing and a Statistical Framework for Phenotype Exploration, Sleep, 2022, zsac189, https://doi.org/10.1093/sleep/zsac189
 
 Obstructive sleep apnea (OSA), in which breathing is reduced or ceased during sleep, affects at least 10% of the population and is associated with numerous comorbidities. Current clinical diagnostic approaches characterize severity and treatment eligibility using the average respiratory event rate over total sleep time (apnea hypopnea index, or AHI). This approach, however, does not characterize the time-varying and dynamic properties of respiratory events that can change as a function of body position, sleep stage, and previous respiratory event activity. Here, we develop a statistical model framework based on point process theory that characterizes the relative influences of all these factors on the moment-to-moment rate of event occurrence.
 
@@ -36,12 +39,15 @@ Herein, we provide code to walk through people, from constructing model input to
 </p>
 
 <br/> --->
+
 <br/>
+<br/>
+
 
 
 ## Data Format Description
 To analyze apnea dynamics, we need these required information
-* apnea event time: the apnea event end times
+* apnea event time: the apnea event end times 
 * sleep stage: stage times and corresponding stages
   - 1: N3 stage
   - 2: N2 stage
@@ -56,6 +62,10 @@ To analyze apnea dynamics, we need these required information
 ```
 hand_scoring_tfpeaks(data, Fs, staging)
 ``` --->
+
+
+<br/>
+<br/>
 
 ## Building Design Matrix
 
@@ -72,17 +82,36 @@ To prepare for the model fitting, we need to convert the data into a design matr
     - Number of knots: 9
     - Knot location setting: With end points at 0 and 150 seconds, 4 knots were placed evenly between the 10th percentile of inter-event intervals and 90 seconds, with another knot at 120 seconds. Two additional knots placed at -10 and 160 seconds were used to determine the derivatives of the spline function at the end points
 
+<br/>
+<br/>
+
 
 
 ## Model Fitting
 In Matlab, glmfit function is applied to fit the point process-GLM model.
 
+* Input:
+  - Design matrix: [pos sta hist]
+  - Response: y
+  - Specify distribution: ‘poisson’
+  - Include constant or not: ‘constant’, ‘off’ 
+
+* Output:
+  - b: fitted parameters
+  - dev: deviance of the model
+  - stats: a Matlab struct that contains all the information about the model fitting result, including coefficient estimates (b), covariance matrix for b, p-values for b, residuals, etc.
+
 
 Usage:
 ```
-[b1, dev1, stats1] = glmfit([pos sta hist],y,'poisson','constant','off');
+[b, dev, stats] = glmfit([pos sta hist],y,'poisson','constant','off');
 
 ```
+
+<br/>
+<br/>
+
+
 
 ## Model Visualization
 To compute the predicted values for the GLM, glmval function is applied
@@ -104,6 +133,39 @@ Usage:
 [yhat,ylo,yhi] = glmval(b,[zeros(150,6) Sp],'log',stats,'constant','off');
 
 ```
+
+<br/>
+<br/>
+
+
+
+
+
+## Example Data
+We apply the modeling approach to four example subjects from MESA dataset (the same 4 subjects as the Figure 1c in the paper), they have similar AHI (~ 15 events/hr) but different history modulation structures.
+
+<br/>
+<br/>
+
+
+
+## Citations
+The code contained in this repository is companion to the paper:  
+> Shuqiang Chen, Susan Redline, Uri T. Eden, and Michael J. Prerau*. Dynamic Models of Obstructive Sleep Apnea Provide Robust Prediction of Respiratory Event Timing and a Statistical Framework for Phenotype Exploration, Sleep, 2022, zsac189, https://doi.org/10.1093/sleep/zsac189
+
+which should be cited for academic use of this code.  
+
+<br/>
+<br/>
+
+
+
+
+
+
+
+
+
 
 
 
