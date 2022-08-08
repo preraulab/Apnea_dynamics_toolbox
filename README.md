@@ -29,16 +29,11 @@ This model acts as a highly individualized respiratory fingerprint, which we sho
 Herein, we provide code to walk through people, from constructing model input to model fitting, as well as the code to visualize the model.
 
 
-<!--- UPDATE THIS USING GRAPHICAL ABSTRACT<br/>
-<p align="center"> 
-<img src="https://prerau.bwh.harvard.edu/spindle_view/TFpeaks_gitImage_info.png" alt="spind" width="600" height="300" />| 
+<br/>
+<p align="center">
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/graph_abs.jpg" width="1000" />
 </p>
 
-<p align="center"> 
-<sup><sub>Spindles are a subset of TFσ peaks. Traditionally scored spindles (magenta regions) are represented as sigma range (10-16Hz) time-frequency peaks in the spectrogram (TFσ peaks) (boxed regions). While scored spindles correspond directly to TFσ peaks, there are many clear TFσ peaks that are not scored as spindles. Source: Dimitrov et. al <sup>10</sup></sup></sub> 
-</p>
-
-<br/> --->
 
 <br/>
 <br/>
