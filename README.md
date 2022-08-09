@@ -152,7 +152,7 @@ Usage:
 
 
 ## Example Data
-We apply the modeling approach to [four example subjects](https://github.com/preraulab/Apnea_dynamics_toolbox/tree/master/Example_data) from MESA dataset (the same 4 subjects as the Figure 1c in the paper), they have similar AHI (~ 15 events/hr) but very different history modulation structures. The [example script](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/example_script.m) is provided in the repository to load the sample data, convert to the design matrix, run the model, output the results and generate history curves (shown below)
+We apply the modeling approach to [four example subjects](https://github.com/preraulab/Apnea_dynamics_toolbox/tree/master/Example_data) from MESA dataset (the same 4 subjects as the Figure 1c in the paper), they have similar AHI (~ 15 events/hr) but very different history modulation structures. The [example script](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/example_script.m) is provided in the repository to load the sample data, convert to the design matrix, run the model, output the results and generate history curves. (shown below)
 
 
 <br/>
