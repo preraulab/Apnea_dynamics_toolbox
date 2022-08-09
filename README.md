@@ -70,14 +70,27 @@ To prepare for the model fitting, we need to convert the data into a design matr
 
 
 * Response (y): [n x 1] vector, binary (0 or 1) event train, 1 means the apnea event happened at that time interval
-* Design matrix: [n x 15] matrix defined as [pos sta hist] 
+* Design matrix: [n x 15] matrix defined as [pos sta history] 
   - Body position (pos): [n x 1] vector, binary (0 or 1), 1 means Supine position at that time interval
   - Sleep stage (sta): [n x 5] matrix defined as [N1 N2 N3 REM Wake], binary (0 or 1), value 1 in each stage column indicates the corresponding stage the participant is in at that time interval    
-  - Event history (hist):[n x 9] matrix describes the past event activity in the cardinal spline basis
+  - Event history (history):[n x 9] matrix describes the past event activity in the cardinal spline basis
     - Total time lag: 150
     - Tension parameter s: 0.5
     - Number of knots: 9
     - Knot location setting: With end points at 0 and 150 seconds, 4 knots were placed evenly between the 10th percentile of inter-event intervals and 90 seconds, with another knot at 120 seconds. Two additional knots placed at -10 and 160 seconds were used to determine the derivatives of the spline function at the end points
+    
+* Other data saved:
+  - Sp: [ord x 9] double, cardinal spline matrix
+  - isis: [, x 1] double, inter-event-intervals in seconds
+
+The function [build_design_mx](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/build_design_mx.m) is provided to reformat the saved data so they are be used to build design matrix and response for model fitting.
+
+Usage:
+```
+[pos,sta,history,y,Sp,isis] = build_design_mx(bin,Fs_pos,ord,event_info,hypnogram,rawposition)
+
+```
+
 
 <br/>
 <br/>
@@ -88,7 +101,7 @@ To prepare for the model fitting, we need to convert the data into a design matr
 In Matlab, glmfit function is applied to fit the point process-GLM model.
 
 * Input:
-  - Design matrix: [pos sta hist]
+  - Design matrix: [pos sta history]
   - Response: y
   - Specify distribution: ‘poisson’
   - Include constant or not: ‘constant’, ‘off’ 
@@ -101,7 +114,7 @@ In Matlab, glmfit function is applied to fit the point process-GLM model.
 
 Usage:
 ```
-[b, dev, stats] = glmfit([pos sta hist],y,'poisson','constant','off');
+[b, dev, stats] = glmfit([pos sta history],y,'poisson','constant','off');
 
 ```
 
@@ -139,7 +152,14 @@ Usage:
 
 
 ## Example Data
-We apply the modeling approach to four example subjects from MESA dataset (the same 4 subjects as the Figure 1c in the paper), they have similar AHI (~ 15 events/hr) but different history modulation structures.
+We apply the modeling approach to [four example subjects](https://github.com/preraulab/Apnea_dynamics_toolbox/tree/master/Example_data) from MESA dataset (the same 4 subjects as the Figure 1c in the paper), they have similar AHI (~ 15 events/hr) but very different history modulation structures. The [example script](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/example_script.m) is provided in the repository to load the sample data, convert to the design matrix, run the model, output the results and generate history curves (shown below)
+
+
+<br/>
+<p align="center">
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/example_figure.jpg" width="1000" />
+</p>
+
 
 <br/>
 <br/>
@@ -156,11 +176,8 @@ which should be cited for academic use of this code.
 <br/>
 
 ## Status
-In progress, 08/06/2022, Updated by SC
 
-* Need to be updated:
-  - Link all the functions
-  - Link pictures
+All implementations are functional, but are subject to refine. Last updated by SC, 08/08/2022
 
 
 
