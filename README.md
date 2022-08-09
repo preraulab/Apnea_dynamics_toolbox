@@ -28,12 +28,12 @@ This model acts as a highly individualized respiratory fingerprint, which we sho
 
 Herein, we provide code to walk through people, from constructing model input to model fitting, as well as the code to visualize the model.
 
-<!---
+
 <br/>
 <p align="center">
 
-<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/graph_abs.jpg" width="1000" />
-</p> --->
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/graphical_abs.jpg" width="1000" />
+</p> 
 
 <sup><sub>**Graphical Abstract:** Moving from the constant AHI, a statistical framework models the “instantaneous AHI” as a function of body position, sleep stage and past event activity. From top to bottom, the graphical abstract shows the respiratory event train across the entire night for a single subject, followed by the body position and hypnogram. The AHI for this participant is around 17 (events/hr), a static metric that poorly describes the whole night event pattern. To recover the dynamics lost by AHI, the PSH model uses information from position, stage and the history dependence structure to provide much stronger predictions for individual events. Source: Chen et al, Sleep 2022 </sup></sub>
 
