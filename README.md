@@ -10,7 +10,7 @@ The sleep apnea dynamics toolbox implemented in Matlab
 * [Building Design Matrix](#building-design-matrix)
 * [Model Fitting](#model-fitting)
 * [Model Visualization](#model-visualization)
-* [Model Goodness-of-fit](#model-goodness-of-fit)
+<!--- * [Model Goodness-of-fit](#model-goodness-of-fit) --->
 * [Example Data](#example-data)
 * [Citations](#citations)
 * [Status](#status)
@@ -82,7 +82,6 @@ The function [build_design_mx](https://github.com/preraulab/Apnea_dynamics_toolb
 Usage:
 ```
 [pos,sta,history,y,Sp,isis] = build_design_mx(bin,Fs_pos,ord,event_info,hypnogram,rawposition)
-
 ```
 
 <br/>
@@ -105,7 +104,6 @@ In Matlab, glmfit function is applied to fit the point process-GLM model.
 Usage:
 ```
 [b, dev, stats] = glmfit([pos sta history],y,'poisson','constant','off');
-
 ```
 
 <br/>
@@ -131,15 +129,9 @@ To compute the predicted values for the GLM, glmval function is applied
 Usage:
 ```
 [yhat,ylo,yhi] = glmval(b,[zeros(150,6) Sp],'log',stats,'constant','off');
-
 ```
 
 <br/>
-
-## Model Goodness-of-fit
-
-
-
 
 
 ## Example Data
@@ -148,33 +140,49 @@ We apply the modeling approach to several [example subjects](https://github.com/
 ### Step 0: Load saved data
 We load a [single subject](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Example_data/example1sub.mat) from MESA dataset that contains all the information we need, check details in the [Data Format Description](#data-format-description) section.
 
-### Step 1: Convert saved data to design matrix and response
-After we perform the function [build_design_mx](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/build_design_mx.m) to reformat the saved data into a design matrix and the corresponding response, we can visualize them using [plot_DesignMx_Resp](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/plot_DesignMx_Resp.m) function.
+### Step 1: Build and visualize design matrix & response
+After we perform the function [build_design_mx.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/build_design_mx.m) to reformat the saved data into a design matrix and the corresponding response, we can visualize them using [plot_DesignMx_Resp.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/plot_DesignMx_Resp.m) function.
 
 <p align="center">
 
-<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/design_mt_resp.jpg" width="800" />
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/design_mt_resp.jpg" width="900" />
 </p> 
 
 Usage:
 ```
 plot_DesignMx_Resp(pos,sta,y)
-
 ```
 
-#### hhh
+### Step 2: Fit model and output result
+Based on the design matrix and response, we can run the model using Matlab built-in function [glmfit](#model-fitting). We can summarize the fitted parameters as an output table to show the event rates in different sleep stages and a supine multiplier, as well as their 95% confidence intervals. The function [save_output_tbl.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/save_output_tbl.m) will report an output table as shown below and save it as a csv file to your current folder.
 
-
-
-<!---
-<br/>
 <p align="center">
-<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/graphical_abs.jpg" width="1000" />
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/output_tbl.jpg" width="1000" />
 </p>
 
+Usage:
+```
+[tbl] = save_output_tbl(bin,b,stats)
+```
 
-<br/>
-<br/> --->
+### Step 3: Plot history modulation curve
+Taking the advantage of the [glmval](#model-visualization) function, we are able to draw a history modulation curve that describes how past respiratory event affects current event rate. The history modulation curve estimates a multiplicative modulation of the event rate due to a prior event at any given time lag, which answers the question: How much more likely is there to be a respiratory event, given that an event was observed X seconds ago? Use the [plot_hist_mod_curve.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/plot_hist_mod_curve.m) function to generate the history modulation curve.
+
+<p align="center">
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/hist_mod.jpg" width="900" />
+</p>
+
+Usage:
+```
+plot_hist_mod_curve(bin,ord,yhat,lo_bound,hi_bound,isis);
+```
+
+### Step 4: Evaluate model goodness-of-fit using KS plot
+The Kolmogorov-Smirnov (KS) statistic measures the largest deviation between the KS plot and the y = x line, a smaller KS statistic values reflecting better goodness-of-fit. Basically, a well-fit model will produce a KS plot that closely follows a 45-degree line and stays within its significance bounds. KS plots that are not contained in these bounds suggest lack-of-fit in the model. 
+
+
+
+
 
 
 
