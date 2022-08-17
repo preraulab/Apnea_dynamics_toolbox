@@ -10,12 +10,11 @@ The sleep apnea dynamics toolbox implemented in Matlab
 * [Building Design Matrix](#building-design-matrix)
 * [Model Fitting](#model-fitting)
 * [Model Visualization](#model-visualization)
+* [Model Goodness-of-fit](#model-goodness-of-fit)
 * [Example Data](#example-data)
 * [Citations](#citations)
 * [Status](#status)
 
-
-<br/>
 <br/>
 
 ## General Information
@@ -26,22 +25,18 @@ Obstructive sleep apnea (OSA), in which breathing is reduced or ceased during sl
 
 This model acts as a highly individualized respiratory fingerprint, which we show can accurately predict the precise timing of future events. We also demonstrate robust model differences in age, sex, and race across a large population. Overall, this approach provides a substantial advancement in OSA characterization for individuals and populations, with the potential for improved patient phenotyping and outcome prediction.
 
-Herein, we provide code to walk through people, from constructing model input to model fitting, as well as the code to visualize the model.
+Herein, we provide the corresponding codes to walk through people step by step, from model input construction to model fitting, model visualization, and model goodness-of-fit.
+<br/>
 
-
+<!---
 <br/>
 <p align="center">
 
 <img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/graphical_abs.jpg" width="1000" />
 </p> 
 
-<sup><sub>**Graphical Abstract:** Moving from the constant AHI, a statistical framework models the “instantaneous AHI” as a function of body position, sleep stage and past event activity. From top to bottom, the graphical abstract shows the respiratory event train across the entire night for a single subject, followed by the body position and hypnogram. The AHI for this participant is around 17 (events/hr), a static metric that poorly describes the whole night event pattern. To recover the dynamics lost by AHI, the PSH model uses information from position, stage and the history dependence structure to provide much stronger predictions for individual events. Source: Chen et al, Sleep 2022 </sup></sub>
-
-
-<br/>
-<br/>
-
-
+<sup><sub>**Moving from the constant AHI, a statistical framework models the “instantaneous AHI” as a function of body position, sleep stage and past event activity.** From top to bottom, the graphical abstract shows the respiratory event train across the entire night for a single subject, followed by the body position and hypnogram. The AHI for this participant is around 17 (events/hr), a static metric that poorly describes the whole night event pattern. To recover the dynamics lost by AHI, the PSH model uses information from position, stage and the history dependence structure to provide much stronger predictions for individual events. Source: Chen et al, Sleep 2022 </sup></sub>
+--->
 
 ## Data Format Description
 To analyze apnea dynamics, we need these required information
@@ -61,8 +56,6 @@ To analyze apnea dynamics, we need these required information
 hand_scoring_tfpeaks(data, Fs, staging)
 ``` --->
 
-
-<br/>
 <br/>
 
 ## Building Design Matrix
@@ -92,11 +85,7 @@ Usage:
 
 ```
 
-
 <br/>
-<br/>
-
-
 
 ## Model Fitting
 In Matlab, glmfit function is applied to fit the point process-GLM model.
@@ -146,24 +135,46 @@ Usage:
 ```
 
 <br/>
-<br/>
+
+## Model Goodness-of-fit
 
 
 
 
 
 ## Example Data
-We apply the modeling approach to [four example subjects](https://github.com/preraulab/Apnea_dynamics_toolbox/tree/master/Example_data) from MESA dataset (the same 4 subjects as the Figure 1c in the paper), they have similar AHI (~ 15 events/hr) but very different history modulation structures. The [example script](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/example_script.m) is provided in the repository to load the sample data, convert to the design matrix, run the model, output the results and generate history curves. (shown below)
+We apply the modeling approach to several [example subjects](https://github.com/preraulab/Apnea_dynamics_toolbox/tree/master/Example_data) from MESA dataset (the same subjects as the Figure 1 b&c in the paper), they have similar AHI (~ 30 events/hr) but very different event patterns. For a single subject, The [example1_script](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/example1_script.m) is provided in the repository to load the sample data, convert to the design matrix, run the model, output the results, generate history curves as well as goodness-of-fit. 
+
+### Step 0: Load saved data
+We load a [single subject](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Example_data/example1sub.mat) from MESA dataset that contains all the information we need, check details in the [Data Format Description](#data-format-description) section.
+
+### Step 1: Convert saved data to design matrix and response
+After we perform the function [build_design_mx](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/build_design_mx.m) to reformat the saved data into a design matrix and the corresponding response, we can visualize them using [plot_DesignMx_Resp](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/plot_DesignMx_Resp.m) function.
+
+<p align="center">
+
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/design_mt_resp.jpg" width="800" />
+</p> 
+
+Usage:
+```
+plot_DesignMx_Resp(pos,sta,y)
+
+```
+
+#### hhh
 
 
+
+<!---
 <br/>
 <p align="center">
-<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/example_figure.jpg" width="1000" />
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/graphical_abs.jpg" width="1000" />
 </p>
 
 
 <br/>
-<br/>
+<br/> --->
 
 
 
@@ -178,7 +189,7 @@ which should be cited for academic use of this code.
 
 ## Status
 
-All implementations are functional, but are subject to refine. Last updated by SC, 08/08/2022
+All implementations are functional, but are subject to refine. Last updated by SC, 08/16/2022
 
 
 
