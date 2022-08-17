@@ -10,7 +10,6 @@ The sleep apnea dynamics toolbox implemented in Matlab
 * [Building Design Matrix](#building-design-matrix)
 * [Model Fitting](#model-fitting)
 * [Model Visualization](#model-visualization)
-<!--- * [Model Goodness-of-fit](#model-goodness-of-fit) --->
 * [Example Data](#example-data)
 * [Citations](#citations)
 * [Status](#status)
@@ -157,7 +156,7 @@ plot_DesignMx_Resp(pos,sta,y)
 Based on the design matrix and response, we can run the model using Matlab built-in function [glmfit](#model-fitting). We can summarize the fitted parameters as an output table to show the event rates in different sleep stages and a supine multiplier, as well as their 95% confidence intervals. The function [save_output_tbl.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/save_output_tbl.m) will report an output table as shown below and save it as a csv file to your current folder.
 
 <p align="center">
-<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/output_tbl.jpg" width="1000" />
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/output_tbl.jpg" width="900" />
 </p>
 
 Usage:
@@ -169,7 +168,7 @@ Usage:
 Taking the advantage of the [glmval](#model-visualization) function, we are able to draw a history modulation curve that describes how past respiratory event affects current event rate. The history modulation curve estimates a multiplicative modulation of the event rate due to a prior event at any given time lag, which answers the question: How much more likely is there to be a respiratory event, given that an event was observed X seconds ago? Use the [plot_hist_mod_curve.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/plot_hist_mod_curve.m) function to generate the history modulation curve.
 
 <p align="center">
-<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/hist_mod.jpg" width="900" />
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/hist_mod.jpg" width="700" />
 </p>
 
 Usage:
@@ -178,12 +177,30 @@ plot_hist_mod_curve(bin,ord,yhat,lo_bound,hi_bound,isis);
 ```
 
 ### Step 4: Evaluate model goodness-of-fit using KS plot
-The Kolmogorov-Smirnov (KS) statistic measures the largest deviation between the KS plot and the y = x line, a smaller KS statistic values reflecting better goodness-of-fit. Basically, a well-fit model will produce a KS plot that closely follows a 45-degree line and stays within its significance bounds. KS plots that are not contained in these bounds suggest lack-of-fit in the model. 
 
+If the model is correct, the time-rescaling theorem can be used to remap the event times into a homogenous Poisson process. After rescaling, Kolmogorov-Smirnov (KS) plots can be used to compare the distribution of inter-event times to those predicted by the model. A well-fit model will produce a KS plot that closely follows a 45-degree line and stays within its significance bounds. KS plots that are not contained in these bounds suggest lack-of-fit in the model. Use the [ks_plot.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/ks_plot.m) function to generate the KS plot.
 
+<p align="center">
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/ks.jpg" width="500" />
+</p>
 
+Usage:
+```
+[ks,ksT] = ks_plot(pos,sta,history,y,b);
+```
+Output:
+  - ks: double, KS statistics
+  - ksT: double, 0: pass the KS test; 1: fail to reject the null 
+  - A KS plot will also be drawn to show the goodness-of-fit
 
+### Nearly same AHI, dramatically different history modulation structures
+Here, we show the [four example subjects](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Example_data/example4sub.mat) from MESA dataset, with similar AHI (~ 30 events/hr) but different history modulation curves. A [script](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/example4_script.m) is provided to generate the following figure.
 
+<p align="center">
+<img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/graphical_abs.jpg" width="900" />
+</p>
+
+Adding history component to the framework allows us to capture the dynamic patterns of the respiratory events and greatly improve our predictability in the event timings. These dynamic patterns act as individualized respiratory fingerprints, providing the potential to phenotype patients, and to personalize therapeutic approaches by controlling airway pressure in a dynamic fashion based on moment-to-moment prediction of respiratory events.
 
 
 ## Citations
