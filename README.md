@@ -165,7 +165,7 @@ Usage:
 ```
 
 ### Step 3: Plot history modulation curve
-Taking the advantage of the [glmval](#model-visualization) function, we are able to draw a history modulation curve that describes how past respiratory event affects current event rate. The history modulation curve estimates a multiplicative modulation of the event rate due to a prior event at any given time lag, which answers the question: How much more likely is there to be a respiratory event, given that an event was observed X seconds ago? Use the [plot_hist_mod_curve.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/plot_hist_mod_curve.m) function to generate the history modulation curve.
+The history modulation curve estimates a multiplicative modulation of the event rate due to a prior event at any given time lag, which answers the question: How much more likely is there to be a respiratory event, given that an event was observed X seconds ago? Use the [plot_hist_mod_curve.m](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/plot_hist_mod_curve.m) function to generate the history modulation curve.
 
 <p align="center">
 <img src="https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/images/hist_mod.jpg" width="700" />
