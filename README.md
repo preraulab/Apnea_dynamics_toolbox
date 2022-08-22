@@ -38,7 +38,7 @@ Herein, we provide the corresponding codes to walk through people step by step, 
 --->
 
 ## Data Format Description
-In general, to analyze apnea dynamics, we need these required information: the apnea event end times, sleep stage times and corresponding stages, position times and corresponding positions. In the [example data](https://github.com/preraulab/Apnea_dynamics_toolbox/tree/master/Example_data), the data file that includes all these information are saved in .mat (Matlab) forms, where each subject has an individual struct file that contains:
+In general, to analyze apnea dynamics, we need these required information: the apnea event end times, sleep stage times and corresponding stages, position times and corresponding positions. In the [example data](https://github.com/preraulab/Apnea_dynamics_toolbox/tree/master/Example_data), the data file that contains all these information is saved in .mat (Matlab) forms, where each subject has an individual struct file that includes:
 * AHI: Apnea Hypopnea Index, in events/hour
 * N: Total number of respiratory events
 * TST: Total sleep time, in hours
