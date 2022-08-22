@@ -38,22 +38,22 @@ Herein, we provide the corresponding codes to walk through people step by step, 
 --->
 
 ## Data Format Description
-To analyze apnea dynamics, we need these required information
-* apnea event time: the apnea event end times 
-* sleep stage: stage times and corresponding stages
+In general, to analyze apnea dynamics, we need these required information: the apnea event end times, sleep stage times and corresponding stages, position times and corresponding positions. In the [example data](https://github.com/preraulab/Apnea_dynamics_toolbox/tree/master/Example_data), the data file that includes all these information are saved in .mat (Matlab) forms, where each subject has an individual struct file that contains:
+* AHI: Apnea Hypopnea Index, in events/hour
+* N: Total number of respiratory events
+* TST: Total sleep time, in hours
+* event_info: [3 x N], double, respiratory events information, [event_start_time, event_duration, event_type]
+  - event_tpye: 1 -> hypopnea, 2 -> OSA, 3 -> central
+* hypnogram: [ , x 3], double, sleep stage information, [stage_start_time, stage_duration, corresponding_stages], for corresponding_stages
   - 1: N3 stage
   - 2: N2 stage
   - 3: N1 stage
   - 4: REM (Rapid Eye Movement sleep)
   - 5: Wake
-* body position: position times and corresponding positions. Raw positions (0:Right; 1: Back; 2: Left; 3: Prone; 4: Upright) are relabeled as:
+* rawposition: [ , x 1], vector, double, sleep positions recorded in sampling frequency Fs_pos, which is 32 Hz in MESA dataset. 0:Right; 1: Back; 2: Left; 3: Prone; 4: Upright, which in our implementation, will be relabeled as:
   - 1: Supine (Sleep on back)
   - 0: Non-Supine (Right, Left, Prone, Upright)
 
-<!--- Usage:
-```
-hand_scoring_tfpeaks(data, Fs, staging)
-``` --->
 
 <br/>
 
@@ -214,7 +214,7 @@ which should be cited for academic use of this code.
 
 ## Status
 
-All implementations are functional, but are subject to refine. Last updated by SC, 08/16/2022
+All implementations are functional, but are subject to refine. Last updated by SC, 08/22/2022
 
 
 
