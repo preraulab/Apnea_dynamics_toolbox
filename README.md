@@ -43,7 +43,7 @@ In general, to analyze apnea dynamics, we need these required information: the a
 * N: Total number of respiratory events
 * TST: Total sleep time, in hours
 * event_info: [3 x N], double, respiratory events information, [event_start_time, event_duration, event_type]
-  - event_tpye: 1 -> hypopnea, 2 -> OSA, 3 -> central
+  - event_type: 1 -> hypopnea, 2 -> OSA, 3 -> central
 * hypnogram: [ , x 3], double, sleep stage information, [stage_start_time, stage_duration, corresponding_stages], for corresponding_stages
   - 1: N3 stage
   - 2: N2 stage
@@ -76,7 +76,7 @@ To prepare for the model fitting, we need to convert the data into a design matr
   - Sp: [ord x 9] double, cardinal spline matrix
   - isis: [, x 1] double, inter-event-intervals in seconds
 
-The function [build_design_mx](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/build_design_mx.m) is provided to reformat the saved data so they are be used to build design matrix and response for model fitting.
+The function [build_design_mx](https://github.com/preraulab/Apnea_dynamics_toolbox/blob/master/Helper_functions/build_design_mx.m) is provided to reformat the saved data so they are used to build design matrix and response for model fitting.
 
 Usage:
 ```
