@@ -17,7 +17,7 @@
 clear; close all;
 
 %% Load data for 4 example subjects
-load('Example_data/example4sub_data.mat');
+load('Example_data/example4sub.mat');
 
 %% Pre settings
 bin = 1;                                     % set bin size (seconds)
