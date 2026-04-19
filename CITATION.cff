@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "Apnea_dynamics_toolbox"
+abstract: "MATLAB toolbox for dynamic point-process modeling of obstructive sleep apnea (OSA) event timing, companion to Chen et al., Sleep 2022."
+authors:
+  - family-names: Chen
+    given-names: Shuqiang
+  - family-names: Redline
+    given-names: Susan
+  - family-names: Eden
+    given-names: Uri T.
+    orcid: "https://orcid.org/0000-0002-2058-3691"
+  - family-names: Prerau
+    given-names: Michael J.
+    name-suffix: Ph.D.
+    affiliation: "Prerau Laboratory, Brigham and Women's Hospital, Harvard Medical School"
+    orcid: "https://orcid.org/0000-0002-9010-5273"
+type: software
+license: BSD-3-Clause
+url: "https://github.com/preraulab/Apnea_dynamics_toolbox"
+repository-code: "https://github.com/preraulab/Apnea_dynamics_toolbox"
+preferred-citation:
+  type: article
+  title: "Dynamic Models of Obstructive Sleep Apnea Provide Robust Prediction of Respiratory Event Timing and a Statistical Framework for Phenotype Exploration"
+  authors:
+    - family-names: Chen
+      given-names: Shuqiang
+    - family-names: Redline
+      given-names: Susan
+    - family-names: Eden
+      given-names: Uri T.
+      orcid: "https://orcid.org/0000-0002-2058-3691"
+    - family-names: Prerau
+      given-names: Michael J.
+      orcid: "https://orcid.org/0000-0002-9010-5273"
+  journal: "Sleep"
+  year: 2022
+  start: zsac189
+  doi: "10.1093/sleep/zsac189"
